@@ -19,11 +19,11 @@ email=jdeltoro@geomata.com.mx
 about=Mapoteca es una herramienta para analizar carpetas con información geográfica (vector y raster), generar inventarios automáticos, detectar problemas de georreferenciación y evaluar el uso de los datos en el tiempo.
 category=Analysis
 icon=icon.png
-homepage=https://github.com/tu_usuario/mapoteca
-tracker=https://github.com/tu_usuario/mapoteca/issues
-repository=https://github.com/tu_usuario/mapoteca
+homepage=https://github.com/jdeltoro1973/mapoteca
+repository=https://github.com/jdeltoro1973/mapoteca
+tracker=https://github.com/jdeltoro1973/mapoteca/issues
 
-tags=GIS, inventario, auditoría, raster, vector, data quality
+tags=GIS, SIG,inventario, auditoría, raster, vector, data quality, shp, shape, geopackage, gpkg, tiff, ecw
 
 experimental=False
 deprecated=False
