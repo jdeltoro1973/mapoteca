@@ -1,7 +1,7 @@
 [general]
 name=Mapoteca
 description=Automatic inventory and auditing of geospatial data in file systems
-version=1.0.3
+version=1.0.4
 qgisMinimumVersion=3.16
 
 author=Juan José Del Toro Madrueño
