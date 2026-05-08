@@ -1,29 +1,22 @@
 [general]
 name=Mapoteca
-description=Inventario automático de archivos GIS en disco o red
+description=Automatic inventory and auditing of geospatial data in file systems
 version=1.0.0
-qgisMinimumVersion=3.0
-author=Juan José Del Toro Madrueño
-email=jdeltoro@geomata.com.mx
-about=Plugin para generar una levantar un inventario geoespacial en tu computadora/servidor
-icon=icon.png
-
-[general]
-name=Mapoteca
-description=Auditoría e inventario de datos geoespaciales en sistemas de archivos
-version=1.0
 qgisMinimumVersion=3.16
 
 author=Juan José Del Toro Madrueño
 email=jdeltoro@geomata.com.mx
-about=Mapoteca es una herramienta para analizar carpetas con información geográfica (vector y raster), generar inventarios automáticos, detectar problemas de georreferenciación y evaluar el uso de los datos en el tiempo.
+
+about=Mapoteca is a tool designed to analyze folders containing geographic data (vector and raster), generate automatic inventories, detect georeferencing issues, and evaluate data usage over time.
+
 category=Analysis
 icon=icon.png
+
 homepage=https://github.com/jdeltoro1973/mapoteca
 repository=https://github.com/jdeltoro1973/mapoteca
 tracker=https://github.com/jdeltoro1973/mapoteca/issues
 
-tags=GIS, SIG,inventario, auditoría, raster, vector, data quality, shp, shape, geopackage, gpkg, tiff, ecw
+tags=GIS, inventory, auditing, raster, vector, data quality, shapefile, geopackage, gpkg, tiff, ecw
 
 experimental=False
 deprecated=False
