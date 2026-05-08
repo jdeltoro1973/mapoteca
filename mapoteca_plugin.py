@@ -9,7 +9,7 @@ from qgis.PyQt.QtWidgets import (
     QMessageBox,
     QFileDialog,
     QProgressDialog,
-    QPushButton
+    QPushButton,
 )
 
 from qgis.PyQt.QtGui import QDesktopServices
@@ -38,9 +38,7 @@ class Mapoteca:
         icon_path = os.path.join(os.path.dirname(__file__), "icon.png")
 
         self.action = QAction(
-            QIcon(icon_path),
-            "Mapoteca - GeoCrawl",
-            self.iface.mainWindow()
+            QIcon(icon_path), "Mapoteca - GeoCrawl", self.iface.mainWindow()
         )
 
         self.action.triggered.connect(self.run)
@@ -68,11 +66,7 @@ class Mapoteca:
             return
 
         self.progress = QProgressDialog(
-            "Ejecutando Mapoteca...",
-            "Cancelar",
-            0,
-            0,
-            self.iface.mainWindow()
+            "Ejecutando Mapoteca...", "Cancelar", 0, 0, self.iface.mainWindow()
         )
 
         self.progress.setWindowTitle("Mapoteca")
@@ -87,9 +81,9 @@ class Mapoteca:
 
         self.worker.start()
 
-# ==========================
-# CUANDO TERMINA
-# ==========================
+    # ==========================
+    # CUANDO TERMINA
+    # ==========================
     def proceso_terminado(self, df):
 
         if self.progress:
@@ -101,17 +95,13 @@ class Mapoteca:
 
         if self.cancelado:
             QMessageBox.information(
-                self.iface.mainWindow(),
-                "Mapoteca",
-                "Proceso cancelado"
+                self.iface.mainWindow(), "Mapoteca", "Proceso cancelado"
             )
             return
 
         if df is None or len(df) == 0:
             QMessageBox.warning(
-                self.iface.mainWindow(),
-                "Mapoteca",
-                "No se encontraron datos."
+                self.iface.mainWindow(), "Mapoteca", "No se encontraron datos."
             )
             return
 
@@ -133,9 +123,7 @@ class Mapoteca:
 
         if not output_path:
             QMessageBox.information(
-                self.iface.mainWindow(),
-                "Mapoteca",
-                "Guardado cancelado"
+                self.iface.mainWindow(), "Mapoteca", "Guardado cancelado"
             )
             return
 
@@ -145,11 +133,9 @@ class Mapoteca:
         try:
             df.to_csv(output_path, index=False, encoding="utf-8-sig")
         except Exception as e:
-            QMessageBox.critical(
-                self.iface.mainWindow(),
-                "Error al guardar",
-                str(e)
-            )
+            QMessageBox.critical(self.iface.mainWindow(),
+                                 "Error al guardar",
+                                 str(e))
             return
 
         # ==========================
@@ -177,11 +163,17 @@ class Mapoteca:
                 df[pd.to_numeric(df["dias_sin_uso"], errors="coerce") > 1095]
             )
 
-        shp = len(df[df["extension"] == "shp"]) \
-            if "extension" in df.columns else 0
+        shp = (
+            len(df[df["extension"] == "shp"])
+            if "extension" in df.columns
+            else 0
+        )
 
-        gpkg = len(df[df["extension"] == "gpkg"]) \
-            if "extension" in df.columns else 0
+        gpkg = (
+            len(df[df["extension"] == "gpkg"])
+            if "extension" in df.columns
+            else 0
+        )
 
         formato_dominante = "SHP" if shp >= gpkg else "GPKG"
 
@@ -203,18 +195,13 @@ class Mapoteca:
         {output_path}
         """
 
-        QMessageBox.information(
-            self.iface.mainWindow(),
-            "Mapoteca",
-            mensaje
-        )
+        QMessageBox.information(self.iface.mainWindow(), "Mapoteca", mensaje)
 
         # ==========================
         # BARRA AZUL ✅ (DENTRO DEL MÉTODO)
         # ==========================
         msg = self.iface.messageBar().createMessage(
-            "Mapoteca",
-            "Mapoteca generada correctamente"
+            "Mapoteca", "Mapoteca generada correctamente"
         )
 
         btn_csv = QPushButton("Abrir CSV")
@@ -236,7 +223,7 @@ class Mapoteca:
             msg,
             level=Qgis.Success,
             duration=60
-        )
+            )
 
     # ==========================
     # ERROR
@@ -253,7 +240,7 @@ class Mapoteca:
             self.iface.mainWindow(),
             "Error Mapoteca",
             str(mensaje)
-        )
+            )
 
     # ==========================
     # CANCELAR
@@ -269,7 +256,5 @@ class Mapoteca:
                 pass
 
         QMessageBox.information(
-            self.iface.mainWindow(),
-            "Mapoteca",
-            "Proceso cancelado"
+            self.iface.mainWindow(), "Mapoteca", "Proceso cancelado"
         )

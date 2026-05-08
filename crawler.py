@@ -36,7 +36,7 @@ def fechas(path):
         return {
             "creacion": time.ctime(os.path.getctime(path)),
             "modificacion": time.ctime(os.path.getmtime(path)),
-            "acceso": time.ctime(os.path.getatime(path))
+            "acceso": time.ctime(os.path.getatime(path)),
         }
     except Exception:
         return {}
@@ -78,23 +78,23 @@ def analizar_vector(path):
 
         for j in range(defn.GetFieldCount()):
             campo = defn.GetFieldDefn(j)
-            atributos.append(
-                f"{campo.GetName()} ({campo.GetTypeName()})"
-            )
+            atributos.append(f"{campo.GetName()} ({campo.GetTypeName()})")
 
-            resultados.append({
-                "tipo": "vector",
-                "capa": layer.GetName(),
-                "features": layer.GetFeatureCount(),
-                "geometria": ogr.GeometryTypeToName(layer.GetGeomType()),
-                "epsg": srs.GetAuthorityCode(None) if srs else None,
-                "atributos": ", ".join(atributos),
-                "num_atributos": len(atributos),
-                "xmin": extent[0],
-                "xmax": extent[1],
-                "ymin": extent[2],
-                "ymax": extent[3]
-            })
+            resultados.append(
+                {
+                    "tipo": "vector",
+                    "capa": layer.GetName(),
+                    "features": layer.GetFeatureCount(),
+                    "geometria": ogr.GeometryTypeToName(layer.GetGeomType()),
+                    "epsg": srs.GetAuthorityCode(None) if srs else None,
+                    "atributos": ", ".join(atributos),
+                    "num_atributos": len(atributos),
+                    "xmin": extent[0],
+                    "xmax": extent[1],
+                    "ymin": extent[2],
+                    "ymax": extent[3],
+                }
+            )
 
         return resultados
 
@@ -122,7 +122,7 @@ def analizar_raster(path):
                 "xmin": None,
                 "xmax": None,
                 "ymin": None,
-                "ymax": None
+                "ymax": None,
             }
 
         geotransform = ds.GetGeoTransform()
@@ -173,7 +173,7 @@ def analizar_raster(path):
             "xmin": xmin,
             "xmax": xmax,
             "ymin": ymin,
-            "ymax": ymax
+            "ymax": ymax,
         }
 
     except Exception:
@@ -187,7 +187,7 @@ def analizar_raster(path):
             "xmin": None,
             "xmax": None,
             "ymin": None,
-            "ymax": None
+            "ymax": None,
         }
 
 
@@ -226,7 +226,8 @@ def ejecutar_crawler(rutas, progress_signal=None):
 
                     try:
                         fecha_acceso = datetime.fromtimestamp(
-                            os.path.getatime(path))
+                            os.path.getatime(path)
+                            )
                         hoy = datetime.now()
                         dias_sin_uso = (hoy - fecha_acceso).days
                     except Exception:
@@ -241,7 +242,7 @@ def ejecutar_crawler(rutas, progress_signal=None):
                         "equipo": hostname,
                         "tamano_mb": safe_getsize(path),
                         "dias_sin_uso": dias_sin_uso,
-                        **info_fechas
+                        **info_fechas,
                     }
 
                     if any(ext.endswith(e) for e in VECTOR_EXT):
@@ -252,14 +253,20 @@ def ejecutar_crawler(rutas, progress_signal=None):
 
                             if acceso_original:
                                 estado = restaurar_fecha_acceso(
-                                    path, acceso_original)
+                                    path, acceso_original
+                                    )
                             else:
                                 estado = "sin_dato"
 
                             fila = {
-                                **base, **info, "restauracion_acceso": estado}
-                            fila = {k: limpiar_texto(v)
-                                    for k, v in fila.items()}
+                                **base,
+                                **info,
+                                "restauracion_acceso": estado
+                                }
+                            fila = {
+                                k: limpiar_texto(v)
+                                for k, v in fila.items()
+                                }
 
                             resultados.append(fila)
 
@@ -282,14 +289,16 @@ def ejecutar_crawler(rutas, progress_signal=None):
                     resultados.append(fila)
 
                 except Exception as e:
-                    resultados.append({
-                        "archivo": limpiar_texto(file),
-                        "ruta": limpiar_texto(path),
-                        "extension": extension,
-                        "error": limpiar_texto(str(e)),
-                        "restauracion_acceso": "error",
-                        "geografico": "False"
-                    })
+                    resultados.append(
+                        {
+                            "archivo": limpiar_texto(file),
+                            "ruta": limpiar_texto(path),
+                            "extension": extension,
+                            "error": limpiar_texto(str(e)),
+                            "restauracion_acceso": "error",
+                            "geografico": "False",
+                        }
+                    )
 
                 procesados += 1
 
@@ -301,6 +310,7 @@ def ejecutar_crawler(rutas, progress_signal=None):
     df = df.astype(str)
 
     return df
+
 
 # ==========================
 # RESUMEN ROBUSTO ✅
@@ -316,8 +326,7 @@ def generar_resumen(df):
 
     if "geografico" in df.columns:
         raster_geo = len(
-            df[(df["tipo"] == "raster") & (df["geografico"] == "True")]
-        )
+            df[(df["tipo"] == "raster") & (df["geografico"] == "True")])
         raster_no_geo = len(
             df[(df["tipo"] == "raster") & (df["geografico"] == "False")]
         )
