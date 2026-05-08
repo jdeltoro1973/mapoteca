@@ -5,7 +5,7 @@
 <h1 align="center">🗺️ Mapoteca 🗺️</h1>
 
 <p align="center">
-  📊 <font color="blue">Automatic inventory of GIS data in local or network file systems</font><br>
+  📊 Automatic inventory of GIS data in local or network file systems<br>
   📊 Inventario automático de información geográfica en sistemas de archivos locales o en red
 </p>
 
@@ -18,15 +18,15 @@
 
 ---
 
-## 🚀 <font color="blue">What is Mapoteca?</font> / ¿Qué es Mapoteca?
+## 🚀 What is Mapoteca? / ¿Qué es Mapoteca?
 
-<font color="blue">**Mapoteca** is a QGIS plugin that analyzes folders containing geospatial data and generates a structured inventory with key information about:  
+**Mapoteca** is a QGIS plugin that analyzes folders containing geospatial data and generates a structured inventory with key information about:  
 - GIS data types 
 - Georeferencing  
 - File usage  
 - Dataset quality
 
-👉 Transform disorganized folders into useful information. </font>
+👉 Transform disorganized folders into useful information. 
 
 **Mapoteca** es un plugin de QGIS que analiza carpetas con datos geoespaciales y genera un inventario estructurado con información clave sobre:
 - Tipos de datos SIG
@@ -40,22 +40,22 @@
 ---
 
 ## <center>✨
-| <font color="blue">Features </font> | Características |
+| Features  | Características |
 | --- | ----------- |
-| 🔍 <font color="blue">Automatic folder scanning</font> | Escaneo automático de carpetas |
-| 🗂️ <font color="blue">Inventory of vector and raster data  | Inventario de datos vector y raster</font> |
-| 🌍 <font color="blue">Georeferencing validation</font> | Validación de georreferenciación  |
-| 📏 <font color="blue">Spatial extent calculation</font> | Cálculo de extensión espacial (extent) |
-| 🧊 <font color="blue">Detection of unused files</font> (>3 years)  | Detección de archivos sin uso (>3 años)  |
-| 📊 <font color="blue">Automatic summary of results</font> | Resumen automático de resultados |
-| 📄 <font color="blue">Export to CSV</font> | Exporta a CSV |
-| 🔗 <font color="blue">Direct access to results from QGIS</font> | Acceso directo al resultado desde QGIS |
+| 🔍 Automatic folder scanning | Escaneo automático de carpetas |
+| 🗂️ Inventory of vector and raster data  | Inventario de datos vector y raster |
+| 🌍 Georeferencing validation | Validación de georreferenciación  |
+| 📏 Spatial extent calculation | Cálculo de extensión espacial (extent) |
+| 🧊 Detection of unused files (>3 years)  | Detección de archivos sin uso (>3 años)  |
+| 📊 Automatic summary of results | Resumen automático de resultados |
+| 📄 Export to CSV | Exporta a CSV |
+| 🔗 Direct access to results from QGIS | Acceso directo al resultado desde QGIS |
 
 ---
 
-## 🖼️ <font color="blue">Screenshots</font> / Capturas de pantalla
+## 🖼️ Screenshots / Capturas de pantalla
 
-### 🔹 <font color="blue">Plugin installation</font> / Instalación del plugin
+### 🔹 Plugin installation / Instalación del plugin
 
 <p align="center">
   <img src="imgs/QGISPlugins.png" width="700">
@@ -63,7 +63,7 @@
 
 ---
 
-### 🔹 <font color="blue">Run Mapoteca from the button or menu</font> / Ejecuta Mapoteca desde el botón o el menú
+### 🔹 Run Mapoteca from the button or menu / Ejecuta Mapoteca desde el botón o el menú
 
 <p align="center">
   <img src="imgs/mapotecaBoton.png" width="700">
@@ -74,7 +74,7 @@
 
 ---
 
-### 🔹 <font color="blue">Select the folder to start scanning (all subfolders will be analyzed) </font> 
+### 🔹 Select the folder to start scanning (all subfolders will be analyzed)  
 ### 🔹 Selecciona la ruta donde comenzará el inventario (se analizarán todas las subcarpetas)
 
 <p align="center">
@@ -83,7 +83,7 @@
 
 ---
 
-### 🔹 <font color="blue">Once the process is complete, a CSV file with a summary will be generated</font>  
+### 🔹 Once the process is complete, a CSV file with a summary will be generated  
 ### 🔹 Al terminar el proceso, se generará un archivo CSV con el resumen
 
 <p align="center">
@@ -95,7 +95,7 @@
 
 ---
 
-### 🔹 <font color="blue">Open the CSV file and analyze your data</font>  
+### 🔹 Open the CSV file and analyze your data  
 ### 🔹 Abre el archivo CSV y analiza tu información
 
 <p align="center">
@@ -104,11 +104,11 @@
 
 ---
 
-## 🤖 <font color="blue">About the development</font> / Sobre el desarrollo
+## 🤖 About the development / Sobre el desarrollo
 
-<font color="blue">This plugin was developed with the support of artificial intelligence (M365 Copilot – GPT‑5), which helped accelerate development and improve code quality. 
+This plugin was developed with the support of artificial intelligence (M365 Copilot – GPT‑5), which helped accelerate development and improve code quality. 
 
-All logic, design decisions, and validations were carried out by the author. </font> 
+All logic, design decisions, and validations were carried out by the author.  
 
 Este plugin fue desarrollado con apoyo de inteligencia artificial (M365 Copilot – GPT‑5), lo que permitió acelerar el proceso de construcción y mejorar la calidad del código.
 
@@ -118,7 +118,7 @@ Toda la lógica, decisiones de diseño y validaciones fueron realizadas por el a
 
 ---
 
-## 👤 <font color="blue">Author</font> / Autor
+## 👤 Author / Autor
 
 **Juan José Del Toro Madrueño**  
 🔗 https://github.com/jdeltoro1973  
