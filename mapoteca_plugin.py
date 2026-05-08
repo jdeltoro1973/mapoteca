@@ -237,3 +237,20 @@ class Mapoteca:
             level=Qgis.Success,
             duration=60
         )
+
+    # ==========================
+    # ERROR
+    # ==========================
+    def proceso_error(self, mensaje):
+
+        if self.progress:
+            try:
+                self.progress.close()
+            except Exception:
+                pass
+
+        QMessageBox.critical(
+            self.iface.mainWindow(),
+            "Error Mapoteca",
+            str(mensaje)
+        )
