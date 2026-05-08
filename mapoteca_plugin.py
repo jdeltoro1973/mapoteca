@@ -19,7 +19,6 @@ from qgis.PyQt.QtCore import QUrl
 from qgis.core import Qgis
 
 from .worker import Worker
-from .crawler import generar_resumen
 
 
 class Mapoteca:
@@ -36,7 +35,6 @@ class Mapoteca:
     # ==========================
     def initGui(self):
 
-
         icon_path = os.path.join(os.path.dirname(__file__), "icon.png")
 
         self.action = QAction(
@@ -44,7 +42,6 @@ class Mapoteca:
             "Mapoteca - GeoCrawl",
             self.iface.mainWindow()
         )
-
 
         self.action.triggered.connect(self.run)
 
@@ -59,7 +56,7 @@ class Mapoteca:
     # EJECUCIÓN PRINCIPAL
     # ==========================
     def run(self):
-        
+
         self.cancelado = False
 
         carpeta = QFileDialog.getExistingDirectory(
@@ -98,7 +95,7 @@ class Mapoteca:
         if self.progress:
             try:
                 self.progress.canceled.disconnect()
-            except:
+            except BaseException:
                 pass
             self.progress.close()
 
@@ -117,7 +114,6 @@ class Mapoteca:
                 "No se encontraron datos."
             )
             return
-
 
         # ==========================
         # NOMBRE SUGERIDO
@@ -171,21 +167,24 @@ class Mapoteca:
         vector = len(df[df["tipo"] == "vector"])
         raster = len(df[df["tipo"] == "raster"])
 
-
         if "geografico" in df.columns:
-            raster_geo = len(df[(df["tipo"] == "raster") & (df["geografico"] == "True")])
-            raster_no_geo = len(df[(df["tipo"] == "raster") & (df["geografico"] == "False")])
+            raster_geo = len(df[(df["tipo"] == "raster") &
+                             (df["geografico"] == "True")])
+            raster_no_geo = len(
+                df[(df["tipo"] == "raster") & (df["geografico"] == "False")])
         else:
             raster_geo = 0
             raster_no_geo = 0
 
-
         antiguos = 0
         if "dias_sin_uso" in df.columns:
-            antiguos = len(df[pd.to_numeric(df["dias_sin_uso"], errors="coerce") > 1095])
+            antiguos = len(
+                df[pd.to_numeric(df["dias_sin_uso"], errors="coerce") > 1095])
 
-        shp = len(df[df["extension"] == "shp"]) if "extension" in df.columns else 0
-        gpkg = len(df[df["extension"] == "gpkg"]) if "extension" in df.columns else 0
+        shp = len(df[df["extension"] == "shp"]
+                  ) if "extension" in df.columns else 0
+        gpkg = len(df[df["extension"] == "gpkg"]
+                   ) if "extension" in df.columns else 0
 
         formato_dominante = "SHP" if shp >= gpkg else "GPKG"
 
@@ -223,8 +222,6 @@ class Mapoteca:
             "Mapoteca generada correctamente"
         )
 
-        
-
         # botón abrir CSV
         btn_csv = QPushButton("Abrir CSV")
         btn_csv.clicked.connect(
@@ -234,8 +231,9 @@ class Mapoteca:
         # botón abrir carpeta
         btn_folder = QPushButton("Abrir carpeta")
         btn_folder.clicked.connect(
-            lambda: QDesktopServices.openUrl(QUrl.fromLocalFile(os.path.dirname(output_path)))
-        )
+            lambda: QDesktopServices.openUrl(
+                QUrl.fromLocalFile(
+                    os.path.dirname(output_path))))
 
         msg.layout().addWidget(btn_csv)
         msg.layout().addWidget(btn_folder)
@@ -248,6 +246,7 @@ class Mapoteca:
     # ==========================
     # ERROR
     # ==========================
+
     def proceso_error(self, mensaje):
 
         if self.progress:
@@ -262,7 +261,7 @@ class Mapoteca:
     # ==========================
     # CANCELAR
     # ==========================
-    
+
     def cancelar(self):
         self.cancelado = True
 
@@ -275,6 +274,7 @@ class Mapoteca:
             "Mapoteca",
             "Proceso cancelado"
         )
+
     def solicitar_cancelacion(self):
 
         self.cancelado = True
@@ -282,6 +282,3 @@ class Mapoteca:
         if self.worker:
             self.worker.terminate()
             self.worker.wait()
-
-
-

@@ -19,7 +19,7 @@ def limpiar_texto(valor):
     if isinstance(valor, str):
         try:
             return valor.encode("utf-8", "ignore").decode("utf-8")
-        except:
+        except Exception:
             return ""
     return valor
 
@@ -27,7 +27,7 @@ def limpiar_texto(valor):
 def safe_getsize(path):
     try:
         return round(os.path.getsize(path) / 1024 / 1024, 2)
-    except:
+    except Exception:
         return None
 
 
@@ -38,7 +38,7 @@ def fechas(path):
             "modificacion": time.ctime(os.path.getmtime(path)),
             "acceso": time.ctime(os.path.getatime(path))
         }
-    except:
+    except Exception:
         return {}
 
 
@@ -52,7 +52,7 @@ def restaurar_fecha_acceso(path, acceso_original):
         return "sin_permiso"
     except FileNotFoundError:
         return "no_existe"
-    except:
+    except Exception:
         return "error"
 
 
@@ -78,7 +78,12 @@ def analizar_vector(path):
 
             for j in range(defn.GetFieldCount()):
                 campo = defn.GetFieldDefn(j)
-                atributos.append(campo.GetName() + " (" + campo.GetTypeName() + ")")
+                atributos.append(
+                    campo.GetName() +
+                    " (" +
+                    campo.GetTypeName() +
+                    ")"
+                )
 
             resultados.append({
                 "tipo": "vector",
@@ -174,7 +179,7 @@ def analizar_raster(path):
             "ymax": ymax
         }
 
-    except:
+    except Exception:
         return {
             "tipo": "raster",
             "geografico": "False",
@@ -219,14 +224,15 @@ def ejecutar_crawler(rutas, progress_signal=None):
 
                 try:
                     info_fechas = fechas(path)
-                    
+
                     dias_sin_uso = None
 
                     try:
-                        fecha_acceso = datetime.fromtimestamp(os.path.getatime(path))
+                        fecha_acceso = datetime.fromtimestamp(
+                            os.path.getatime(path))
                         hoy = datetime.now()
                         dias_sin_uso = (hoy - fecha_acceso).days
-                    except:
+                    except Exception:
                         pass
 
                     acceso_original = info_fechas.get("acceso")
@@ -242,21 +248,23 @@ def ejecutar_crawler(rutas, progress_signal=None):
                     }
 
                     if any(ext.endswith(e) for e in VECTOR_EXT):
-                        
+
                         infos = analizar_vector(path)
 
                         for info in infos:
 
                             if acceso_original:
-                                estado = restaurar_fecha_acceso(path, acceso_original)
+                                estado = restaurar_fecha_acceso(
+                                    path, acceso_original)
                             else:
                                 estado = "sin_dato"
 
-                            fila = {**base, **info, "restauracion_acceso": estado}
-                            fila = {k: limpiar_texto(v) for k, v in fila.items()}
+                            fila = {
+                                **base, **info, "restauracion_acceso": estado}
+                            fila = {k: limpiar_texto(v)
+                                    for k, v in fila.items()}
 
                             resultados.append(fila)
-
 
                     elif any(ext.endswith(e) for e in RASTER_EXT):
                         info = analizar_raster(path)
@@ -309,19 +317,20 @@ def generar_resumen(df):
     raster = len(df[df["tipo"] == "raster"]) if "tipo" in df else 0
 
     if "geografico" in df.columns:
-        raster_geo = len(df[(df["tipo"] == "raster") & (df["geografico"] == "True")])
-        raster_no_geo = len(df[(df["tipo"] == "raster") & (df["geografico"] == "False")])
+        raster_geo = len(df[(df["tipo"] == "raster") &
+                         (df["geografico"] == "True")])
+        raster_no_geo = len(
+            df[(df["tipo"] == "raster") & (df["geografico"] == "False")])
     else:
         raster_geo = 0
         raster_no_geo = 0
 
-    fallos = len(df[df["restauracion_acceso"] != "ok"]) if "restauracion_acceso" in df else 0
+    fallos = len(df[df["restauracion_acceso"] != "ok"]
+                 ) if "restauracion_acceso" in df else 0
 
-    return (
-        "Total: " + str(total) +
-        "\nVectores: " + str(vector) +
-        "\nRaster: " + str(raster) +
-        "\n  Geografico: " + str(raster_geo) +
-        "\n  No geografico: " + str(raster_no_geo) +
-        "\nFallos restauracion: " + str(fallos)
-    )
+    return f"""Total: {total}
+    Vectores: {vector}
+    Raster: {raster}
+    Geografico: {raster_geo}
+    No geografico: {raster_no_geo}
+    Fallos restauracion: {fallos}"""

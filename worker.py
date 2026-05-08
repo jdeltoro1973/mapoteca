@@ -1,6 +1,7 @@
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 from .crawler import ejecutar_crawler
 
+
 class Worker(QThread):
 
     finished = pyqtSignal(object)
