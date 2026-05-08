@@ -76,14 +76,11 @@ def analizar_vector(path):
 
             atributos = []
 
-            for j in range(defn.GetFieldCount()):
-                campo = defn.GetFieldDefn(j)
-                atributos.append(
-                    campo.GetName() +
-                    " (" +
-                    campo.GetTypeName() +
-                    ")"
-                )
+        for j in range(defn.GetFieldCount()):
+            campo = defn.GetFieldDefn(j)
+            atributos.append(
+                f"{campo.GetName()} ({campo.GetTypeName()})"
+            )
 
             resultados.append({
                 "tipo": "vector",
@@ -305,32 +302,44 @@ def ejecutar_crawler(rutas, progress_signal=None):
 
     return df
 
-
 # ==========================
 # RESUMEN ROBUSTO ✅
 # ==========================
+
+
 def generar_resumen(df):
 
     total = len(df)
 
-    vector = len(df[df["tipo"] == "vector"]) if "tipo" in df else 0
-    raster = len(df[df["tipo"] == "raster"]) if "tipo" in df else 0
+    vector = len(df[df["tipo"] == "vector"]) if "tipo" in df.columns else 0
+    raster = len(df[df["tipo"] == "raster"]) if "tipo" in df.columns else 0
 
     if "geografico" in df.columns:
-        raster_geo = len(df[(df["tipo"] == "raster") &
-                         (df["geografico"] == "True")])
+        raster_geo = len(
+            df[
+                (df["tipo"] == "raster")
+                & (df["geografico"] == "True")
+            ]
+        )
         raster_no_geo = len(
-            df[(df["tipo"] == "raster") & (df["geografico"] == "False")])
+            df[
+                (df["tipo"] == "raster")
+                & (df["geografico"] == "False")
+            ]
+        )
     else:
         raster_geo = 0
         raster_no_geo = 0
 
-    fallos = len(df[df["restauracion_acceso"] != "ok"]
-                 ) if "restauracion_acceso" in df else 0
+    fallos = (
+        len(df[df["restauracion_acceso"] != "ok"])
+        if "restauracion_acceso" in df.columns
+        else 0
+    )
 
     return f"""Total: {total}
-    Vectores: {vector}
-    Raster: {raster}
-    Geografico: {raster_geo}
-    No geografico: {raster_no_geo}
-    Fallos restauracion: {fallos}"""
+Vectores: {vector}
+Raster: {raster}
+Geografico: {raster_geo}
+No geografico: {raster_no_geo}
+Fallos restauracion: {fallos}"""
