@@ -254,3 +254,22 @@ class Mapoteca:
             "Error Mapoteca",
             str(mensaje)
         )
+
+    # ==========================
+    # CANCELAR
+    # ==========================
+    def solicitar_cancelacion(self):
+        self.cancelado = True
+
+        if self.worker:
+            try:
+                self.worker.terminate()
+                self.worker.wait()
+            except Exception:
+                pass
+
+        QMessageBox.information(
+            self.iface.mainWindow(),
+            "Mapoteca",
+            "Proceso cancelado"
+        )
