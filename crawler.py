@@ -316,16 +316,10 @@ def generar_resumen(df):
 
     if "geografico" in df.columns:
         raster_geo = len(
-            df[
-                (df["tipo"] == "raster")
-                & (df["geografico"] == "True")
-            ]
+            df[(df["tipo"] == "raster") & (df["geografico"] == "True")]
         )
         raster_no_geo = len(
-            df[
-                (df["tipo"] == "raster")
-                & (df["geografico"] == "False")
-            ]
+            df[(df["tipo"] == "raster") & (df["geografico"] == "False")]
         )
     else:
         raster_geo = 0
