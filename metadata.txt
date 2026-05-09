@@ -1,7 +1,7 @@
 [general]
 name=Mapoteca
 description=Automatic inventory and auditing of geospatial data in file systems
-version=1.0.7
+version=1.0.8
 qgisMinimumVersion=3.16
 
 author=Juan José Del Toro Madrueño
@@ -20,3 +20,10 @@ tags=GIS, inventory, auditing, raster, vector, data quality, shapefile, geopacka
 
 experimental=False
 deprecated=False
+
+changelog=
+- Fix flake8 issues
+- Improve code formatting and structure
+- Fix UI feedback and messaging
+- Add error handling and cancellation support
+- Improve data validation and output handling
