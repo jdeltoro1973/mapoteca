@@ -227,7 +227,7 @@ def ejecutar_crawler(rutas, progress_signal=None):
                     try:
                         fecha_acceso = datetime.fromtimestamp(
                             os.path.getatime(path)
-                            )
+                        )
                         hoy = datetime.now()
                         dias_sin_uso = (hoy - fecha_acceso).days
                     except Exception:
@@ -254,7 +254,7 @@ def ejecutar_crawler(rutas, progress_signal=None):
                             if acceso_original:
                                 estado = restaurar_fecha_acceso(
                                     path, acceso_original
-                                    )
+                                )
                             else:
                                 estado = "sin_dato"
 
@@ -262,11 +262,11 @@ def ejecutar_crawler(rutas, progress_signal=None):
                                 **base,
                                 **info,
                                 "restauracion_acceso": estado
-                                }
+                            }
                             fila = {
                                 k: limpiar_texto(v)
                                 for k, v in fila.items()
-                                }
+                            }
 
                             resultados.append(fila)
 

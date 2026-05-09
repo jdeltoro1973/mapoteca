@@ -223,7 +223,7 @@ class Mapoteca:
             msg,
             level=Qgis.Success,
             duration=60
-            )
+        )
 
     # ==========================
     # ERROR
@@ -240,7 +240,7 @@ class Mapoteca:
             self.iface.mainWindow(),
             "Error Mapoteca",
             str(mensaje)
-            )
+        )
 
     # ==========================
     # CANCELAR
